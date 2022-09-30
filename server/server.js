@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 
+require("dotenv").config();
+
 express().use(morgan("tiny"));
 
 app.get("/hello", (req, res) => {

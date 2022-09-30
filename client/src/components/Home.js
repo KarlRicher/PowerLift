@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 import Feed from "./Feed";
-import ProfileInfo from "./ProfileInfo";
+import MoreOptions from "./Sidebar";
 import News from "./News";
 
 const Home = () => {
   return (
     <Wrapper>
-      <ProfileInfo />
+      <MoreOptions />
       <Feed />
       <News />
     </Wrapper>

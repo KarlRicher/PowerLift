@@ -1,22 +1,22 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import viking from "../assets/viking.png";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
+
 import { FiImage, FiYoutube, FiCalendar } from "react-icons/fi";
 
 const Feed = () => {
   const navigate = useNavigate();
-  // const { currentUser } = useContext(CurrentUserContext);
+  const { user } = useAuth0();
 
   return (
     <Wrapper>
-      <h1>Feed</h1>
       <PostForm onSubmit={(event) => {}}>
         <PicAndInput>
           <ProfilePic
-            src={viking}
+            src={user.picture}
             onClick={() => {
-              navigate("/:userOrSomething");
+              navigate("/profile");
             }}
           />
           <Input type="text" placeholder="Feeling Strong Today?"></Input>
@@ -33,6 +33,7 @@ const Feed = () => {
           </EventButton>
         </MediaDiv>
       </PostForm>
+      <h1>Feed</h1>
     </Wrapper>
   );
 };
@@ -83,9 +84,11 @@ const ProfilePic = styled.img`
 const Input = styled.input`
   width: 100%;
   height: 50px;
-  border-radius: 15px;
+  border-radius: 30px;
+  border: 0.5px solid black;
   font-size: 20px;
   padding-left: 15px;
+  background: #f2f2f2;
 `;
 
 const MediaDiv = styled.div`

@@ -38,7 +38,8 @@ const LogoDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  width: 33.33%;
 `;
 
 const LogoLink = styled(Link)`
@@ -55,12 +56,20 @@ const Span = styled.span`
 `;
 
 const SearchDiv = styled.div`
-  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33.33%;
 `;
 
 const Input = styled.input`
   font-size: 1.5em;
+  height: 2em;
   width: 100%;
+  padding: 0 15px;
+  border-radius: 30px;
+  border: 0.5px solid black;
+  background: #f2f2f2;
 `;
 
 export default Header;

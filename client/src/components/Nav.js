@@ -1,10 +1,14 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { FiHome, FiBell, FiMail, FiUser, FiSettings } from "react-icons/fi";
+import { FiHome, FiBell, FiMail, FiSettings } from "react-icons/fi";
+import LogoutButton from "./Logout";
 
 const Nav = () => {
+  const { user } = useAuth0();
+
   return (
     <Wrapper>
       <NavbarLinks to={"/"}>
@@ -29,9 +33,7 @@ const Nav = () => {
       </NavbarLinks>
 
       <NavbarLinks to={"/profile"}>
-        <Icon>
-          <FiUser />
-        </Icon>
+        <ProfilePic src={user.picture} />
         <Span>Profile</Span>
       </NavbarLinks>
 
@@ -41,6 +43,7 @@ const Nav = () => {
         </Icon>
         <Span>Settings</Span>
       </NavbarLinks>
+      <LogoutButton />
     </Wrapper>
   );
 };
@@ -49,7 +52,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  width: 33.33%;
 `;
 
 const NavbarLinks = styled(Link)`
@@ -76,6 +80,18 @@ const Icon = styled.div`
 
 const Span = styled.span`
   margin-left: 5px;
+`;
+
+const ProfilePic = styled.img`
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid black;
+  border-radius: 100px;
+  margin-right: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default Nav;
