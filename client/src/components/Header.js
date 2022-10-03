@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { GiVikingHelmet } from "react-icons/gi";
 
-import Nav from "./Nav";
+import LogoutButton from "./Logout";
 
 const Header = () => {
   return (
@@ -19,7 +19,9 @@ const Header = () => {
       <SearchDiv>
         <Input type="text" placeholder="Search" />
       </SearchDiv>
-      <Nav />
+      <LogoutDiv>
+        <LogoutButton />
+      </LogoutDiv>
     </Wrapper>
   );
 };
@@ -70,6 +72,14 @@ const Input = styled.input`
   border-radius: 30px;
   border: 0.5px solid black;
   background: #f2f2f2;
+`;
+
+const LogoutDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 33.33%;
 `;
 
 export default Header;

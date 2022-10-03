@@ -2,6 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.2",
@@ -10,5 +13,8 @@
     "mongodb": "^4.10.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0"
   }
 }
