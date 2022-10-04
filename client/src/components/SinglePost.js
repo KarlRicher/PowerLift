@@ -23,7 +23,7 @@ const SinglePost = ({ postInfo }) => {
           <AuthorAvatar
             src={postAuthor.avatar}
             onClick={() => {
-              navigate(`/${postInfo.authorEmail}`);
+              navigate(`/profile/${postInfo.authorEmail}`);
             }}
           />
           <AuthorInfo>

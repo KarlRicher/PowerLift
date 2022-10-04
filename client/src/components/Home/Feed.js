@@ -31,7 +31,6 @@ const Feed = () => {
           );
         })}
       </PostFeed>
-      <h1>Feed</h1>
     </Wrapper>
   );
 };

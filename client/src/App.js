@@ -9,6 +9,7 @@ import Home from "./components/Home/Home";
 import LoginPage from "./components/Login";
 import Profile from "./components/Profile/Profile";
 import Sidebar from "./components/Sidebar";
+import Calculator from "./components/Calculator";
 
 const App = () => {
   const { isLoading, isAuthenticated, error } = useAuth0();
@@ -31,6 +32,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/profile/:userEmail" element={<Profile />} />
+              <Route path="/calculator" element={<Calculator />} />
             </Routes>
           </Main>
         </BrowserRouter>

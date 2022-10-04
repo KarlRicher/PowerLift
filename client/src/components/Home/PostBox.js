@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 
-import { FiImage, FiYoutube, FiCalendar } from "react-icons/fi";
+import { FiImage, FiYoutube } from "react-icons/fi";
+import { AiOutlineAlert } from "react-icons/ai";
 
 const PostBox = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const PostBox = () => {
           <FiYoutube /> <ButtonSpan>Video</ButtonSpan>
         </VideoButton>
         <EventButton>
-          <FiCalendar /> <ButtonSpan>Event</ButtonSpan>
+          <AiOutlineAlert /> <ButtonSpan>PR Alert</ButtonSpan>
         </EventButton>
       </MediaDiv>
     </PostForm>
