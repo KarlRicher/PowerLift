@@ -4,17 +4,32 @@ import styled from "styled-components";
 
 import { NavLink } from "react-router-dom";
 import { FiHome, FiBell, FiMail, FiSettings } from "react-icons/fi";
+import { BsGrid3X3, BsCalculator } from "react-icons/bs";
 
 const Sidebar = () => {
   const { user } = useAuth0();
 
   return (
     <Wrapper>
-      <SidebarLinks>
+      <SidebarLinks to={"/"}>
         <Icon>
           <FiHome />
         </Icon>
         <Span>Home</Span>
+      </SidebarLinks>
+
+      <SidebarLinks to={"/leaderboard"}>
+        <Icon>
+          <BsGrid3X3 />
+        </Icon>
+        <Span>Leaderboard</Span>
+      </SidebarLinks>
+
+      <SidebarLinks to={"/calculator"}>
+        <Icon>
+          <BsCalculator />
+        </Icon>
+        <Span>GL Points Calculator</Span>
       </SidebarLinks>
 
       <SidebarLinks to={`/profile/${user.email}`}>

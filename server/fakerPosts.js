@@ -13,18 +13,42 @@ const options = {
 
 const POSTS = [];
 
+const getRandomEmail = async () => {
+  const client = new MongoClient(MONGO_URI, options);
+
+  await client.connect();
+
+  const db = client.db("PowerLift");
+  const usersArray = await db.collection("users").find().toArray();
+
+  client.close();
+
+  const usersEmails = [];
+
+  usersArray.forEach((user) => {
+    usersEmails.push(user.email);
+  });
+
+  const randomEmail =
+    usersEmails[Math.floor(Math.random() * usersEmails.length)];
+
+  console.log("randomEmail :" + randomEmail);
+
+  return randomEmail;
+};
+
 const createRandomPost = () => {
   return {
     _id: faker.datatype.uuid(),
-    authorEmail: "Juanita_Renner58@gmail.com",
-    timestamp: faker.date.past(1),
+    authorEmail: "karl.richer@outlook.com",
+    timestamp: faker.date.recent(2),
     likedBy: [],
     repostedBy: [],
     status: faker.lorem.sentence(),
   };
 };
 
-Array.from({ length: 5 }).forEach(() => {
+Array.from({ length: 3 }).forEach(() => {
   POSTS.push(createRandomPost());
 });
 

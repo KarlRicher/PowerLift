@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PostBox from "./PostBox";
-import SinglePost from "./SinglePost";
+import SinglePost from "../SinglePost";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -25,9 +25,9 @@ const Feed = () => {
       <PostFeed>
         {filteredPosts.map((post) => {
           return (
-            <div>
+            <PostWrapper>
               <SinglePost postInfo={post} />
-            </div>
+            </PostWrapper>
           );
         })}
       </PostFeed>
@@ -48,6 +48,19 @@ const Wrapper = styled.div`
 
 const PostFeed = styled.div`
   width: 100%;
+`;
+
+const PostWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  max-width: 100%;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
 `;
 
 export default Feed;

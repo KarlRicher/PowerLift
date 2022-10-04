@@ -2,13 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 import Feed from "./Feed";
-import MoreOptions from "./Sidebar";
 import News from "./News";
 
 const Home = () => {
   return (
     <Wrapper>
-      <MoreOptions />
       <Feed />
       <News />
     </Wrapper>

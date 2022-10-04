@@ -42,18 +42,7 @@ const SinglePost = ({ postInfo }) => {
   );
 };
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-
-  max-width: 100%;
-  margin: 20px 0;
-  padding: 20px;
-  background-color: white;
-  border-radius: 15px;
-`;
+const Wrapper = styled.div``;
 
 const PostHeader = styled.div`
   display: flex;

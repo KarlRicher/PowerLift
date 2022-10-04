@@ -3,6 +3,7 @@ const app = express();
 const morgan = require("morgan");
 const { getPosts } = require("./handlers/getPosts");
 const { getUser } = require("./handlers/getUser");
+const { getUserPosts } = require("./handlers/getUserPosts");
 const { getUsers } = require("./handlers/getUsers");
 
 require("dotenv").config();
@@ -15,6 +16,7 @@ app.get("/hello", (req, res) => {
 
 app.get("/api/get-user/:userEmail", getUser);
 app.get("/api/get-users", getUsers);
+app.get("/api/get-user-posts/:email", getUserPosts);
 app.get("/api/get-posts", getPosts);
 
 app.listen(8000, () => {

@@ -32,6 +32,7 @@ const createRandomUser = () => {
     connection: "MongoDB",
     client_id: faker.datatype.uuid(),
     avatar: faker.internet.avatar(),
+    banner: faker.image.sports(),
     email,
     firstName,
     lastName,
@@ -46,7 +47,7 @@ const createRandomUser = () => {
   };
 };
 
-Array.from({ length: 10 }).forEach(() => {
+Array.from({ length: 9 }).forEach(() => {
   USERS.push(createRandomUser());
 });
 

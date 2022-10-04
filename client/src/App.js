@@ -4,10 +4,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 
 import GlobalStyle from "./components/GlobalStyle";
-import Header from "./components/Header";
-import Home from "./components/Home";
+import Header from "./components/Header/Header";
+import Home from "./components/Home/Home";
 import LoginPage from "./components/Login";
-import Profile from "./components/Profile";
+import Profile from "./components/Profile/Profile";
+import Sidebar from "./components/Sidebar";
 
 const App = () => {
   const { isLoading, isAuthenticated, error } = useAuth0();
@@ -26,6 +27,7 @@ const App = () => {
           <GlobalStyle />
           <Header />
           <Main>
+            <Sidebar />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/profile/:userEmail" element={<Profile />} />
@@ -39,8 +41,13 @@ const App = () => {
   }
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
-const Main = styled.div``;
+const Main = styled.div`
+  display: flex;
+`;
 
 export default App;

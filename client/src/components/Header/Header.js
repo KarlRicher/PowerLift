@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { GiVikingHelmet } from "react-icons/gi";
 
 import LogoutButton from "./Logout";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   return (
@@ -16,9 +17,7 @@ const Header = () => {
           <GiVikingHelmet />
         </LogoLink>
       </LogoDiv>
-      <SearchDiv>
-        <Input type="text" placeholder="Search" />
-      </SearchDiv>
+      <SearchBar />
       <LogoutDiv>
         <LogoutButton />
       </LogoutDiv>
@@ -55,23 +54,6 @@ const LogoLink = styled(Link)`
 
 const Span = styled.span`
   margin-right: 10px;
-`;
-
-const SearchDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 33.33%;
-`;
-
-const Input = styled.input`
-  font-size: 1.5em;
-  height: 2em;
-  width: 100%;
-  padding: 0 15px;
-  border-radius: 30px;
-  border: 0.5px solid black;
-  background: #f2f2f2;
 `;
 
 const LogoutDiv = styled.div`
