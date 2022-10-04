@@ -45,13 +45,6 @@ const Profile = () => {
           </LifterInfo>
         </BasicInfo>
         <ProfilePage>
-          <PersonalBests>
-            <h2>Personal Bests</h2>
-            <PR>Benchpress: {fetchedUser.bench}lbs</PR>
-            <PR>Squat: {fetchedUser.squat}lbs</PR>
-            <PR>Deadlift: {fetchedUser.deadlift}lbs</PR>
-            <PR>Total: {fetchedUser.total}lbs</PR>
-          </PersonalBests>
           <ProfileFeed>
             <h1>Lifter's Posts</h1>
             {filteredProfilePosts.map((post) => {
@@ -62,6 +55,13 @@ const Profile = () => {
               );
             })}
           </ProfileFeed>
+          <PersonalBests>
+            <h1>Personal Bests</h1>
+            <PR>Benchpress: {fetchedUser.bench}lbs</PR>
+            <PR>Squat: {fetchedUser.squat}lbs</PR>
+            <PR>Deadlift: {fetchedUser.deadlift}lbs</PR>
+            <PR>Total: {fetchedUser.total}lbs</PR>
+          </PersonalBests>
         </ProfilePage>
       </Wrapper>
     )
@@ -84,8 +84,8 @@ const BasicInfo = styled.div`
   justify-content: space-evenly;
 
   padding: 30px;
-  width: 100%;
-  border-bottom: 1px solid black;
+  max-width: 100%;
+  background-color: white;
 `;
 
 const ProfilePic = styled.img`
@@ -95,16 +95,15 @@ const ProfilePic = styled.img`
 `;
 
 const DisplayName = styled.p`
-  margin-left: 40px;
   font-size: 40px;
   font-weight: bold;
-  background-color: white;
+  background-color: #f2f2f2;
   border-radius: 15px;
   padding: 10px;
 `;
 
 const LifterInfo = styled.div`
-  background-color: white;
+  background-color: #f2f2f2;
   border-radius: 15px;
   padding: 10px;
 `;
@@ -119,19 +118,24 @@ const ProfilePage = styled.div`
 `;
 
 const PersonalBests = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+`;
+
+const PR = styled.p`
   background-color: white;
   border-radius: 15px;
   padding: 10px;
-  width: 30%;
 `;
-
-const PR = styled.p``;
 
 const ProfileFeed = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 40%;
   padding: 0 10%;
 `;
 

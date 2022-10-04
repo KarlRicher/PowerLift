@@ -60,6 +60,7 @@ const AuthorAvatar = styled.img`
   height: 40px;
   margin-left: 10px;
   border-radius: 40px;
+  cursor: pointer;
 `;
 
 const AuthorInfo = styled.div`

@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   return (
     <Wrapper>
-      <SidebarLinks to={"/"}>
+      <SidebarLinks to={"/"} end>
         <Icon>
           <FiHome />
         </Icon>
