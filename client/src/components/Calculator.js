@@ -1,8 +1,97 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const Calculator = () => {
+  let [bw, setBw] = useState(0);
+  let [total, setTotal] = useState(0);
+  const [disabled, setDisabled] = useState(false);
+
+  const dots_poly = (a, b, c, d, e, x) => {
+    let x2 = x * x,
+      x3 = x2 * x,
+      x4 = x3 * x;
+    return 500.0 / (a * x4 + b * x3 + c * x2 + d * x + e);
+  };
+
+  const dots_men = (bw) => {
+    bw = Math.min(Math.max(bw, 40.0), 210.0);
+    return dots_poly(
+      -0.000001093,
+      0.0007391293,
+      -0.1918759221,
+      24.0900756,
+      -307.75076,
+      bw
+    );
+  };
+
+  const dots_women = (bw) => {
+    bw = Math.min(Math.max(bw, 40.0), 150.0);
+    return dots_poly(
+      -0.0000010706,
+      0.0005158568,
+      -0.1126655495,
+      13.6175032,
+      -57.96288,
+      bw
+    );
+  };
+
+  var PARAMETERS = {
+    M: {
+      Raw: {
+        SBD: [1199.72839, 1025.18162, 0.00921],
+        B: [320.98041, 281.40258, 0.01008],
+      },
+      "Single-ply": {
+        SBD: [1236.25115, 1449.21864, 0.01644],
+        B: [381.22073, 733.79378, 0.02398],
+      },
+    },
+    F: {
+      Raw: {
+        SBD: [610.32796, 1045.59282, 0.03048],
+        B: [142.40398, 442.52671, 0.04724],
+      },
+      "Single-ply": {
+        SBD: [758.63878, 949.31382, 0.02435],
+        B: [221.82209, 357.00377, 0.02937],
+      },
+    },
+  };
+
+  const getRadioValue = (name) => {
+    const radios = document.getElementsByName(name);
+    for (let i = 0; i < radios.length; ++i) {
+      if (radios[i].checked) {
+        return radios[i].value;
+      }
+    }
+  };
+
   const calc = () => {
-    // console.log("Calculated!");
+    let units = getRadioValue("units");
+    let sex = getRadioValue("sex");
+    let equipment = getRadioValue("equipment");
+    let event = getRadioValue("event");
+
+    if (units === "lbs") {
+      bw = bw / 2.20462262;
+      total = total / 2.20462262;
+    }
+
+    let dots = total * (sex === "M" ? dots_men(bw) : dots_women(bw));
+
+    let params = PARAMETERS[sex][equipment][event];
+    let denom = params[0] - params[1] * Math.exp(-1.0 * params[2] * bw);
+    let glp = denom === 0 ? 0 : Math.max(0, (total * 100.0) / denom);
+    if (isNaN(glp) || bw < 35) {
+      glp = 0;
+    }
+
+    document.getElementById("display-glp").innerHTML = glp.toFixed(2);
+    document.getElementById("display-dots").innerHTML =
+      dots.toFixed(2) + " Dots";
   };
 
   return (
@@ -13,8 +102,8 @@ const Calculator = () => {
         </Title>
 
         <Points>
-          <DisplayGlp></DisplayGlp>
-          <DisplayDots></DisplayDots>
+          <DisplayGlp id="display-glp">0.00</DisplayGlp>
+          <DisplayDots id="display-dots">0.00 Dots</DisplayDots>
         </Points>
       </Background>
 
@@ -30,7 +119,10 @@ const Calculator = () => {
               name="total"
               min="0"
               step="2.5"
-              onInput={calc()}
+              onChange={(event) => {
+                setTotal(event.target.value);
+                setDisabled(false);
+              }}
             />
           </Field>
 
@@ -44,7 +136,10 @@ const Calculator = () => {
               name="bodyweight"
               min="0"
               step="0.1"
-              onInput={calc()}
+              onChange={(event) => {
+                setBw(event.target.value);
+                setDisabled(false);
+              }}
             />
           </Field>
 
@@ -55,7 +150,9 @@ const Calculator = () => {
                 id="kilograms"
                 name="units"
                 value="kg"
-                onChange={calc()}
+                onChange={() => {
+                  setDisabled(false);
+                }}
                 defaultChecked
               />
               <Label htmlFor="kilograms" className="Label-radio">
@@ -68,7 +165,9 @@ const Calculator = () => {
                 id="pounds"
                 name="units"
                 value="lbs"
-                onChange={calc()}
+                onChange={() => {
+                  setDisabled(false);
+                }}
               />
               <Label htmlFor="pounds" className="Label-radio">
                 Pounds
@@ -83,7 +182,9 @@ const Calculator = () => {
                 id="men"
                 name="sex"
                 value="M"
-                onChange={calc()}
+                onChange={() => {
+                  setDisabled(false);
+                }}
                 defaultChecked
               />
               <Label htmlFor="men" className="Label-radio">
@@ -96,7 +197,9 @@ const Calculator = () => {
                 id="women"
                 name="sex"
                 value="F"
-                onChange={calc()}
+                onChange={() => {
+                  setDisabled(false);
+                }}
               />
               <Label htmlFor="women" className="Label-radio">
                 Women
@@ -111,7 +214,9 @@ const Calculator = () => {
                 id="raw"
                 name="equipment"
                 value="Raw"
-                onChange={calc()}
+                onChange={() => {
+                  setDisabled(false);
+                }}
                 defaultChecked
               />
               <Label htmlFor="raw" className="Label-radio">
@@ -124,7 +229,9 @@ const Calculator = () => {
                 id="single"
                 name="equipment"
                 value="Single-ply"
-                onChange={calc()}
+                onChange={() => {
+                  setDisabled(false);
+                }}
               />
               <Label htmlFor="single" className="Label-radio">
                 Single-ply
@@ -139,7 +246,9 @@ const Calculator = () => {
                 id="sbd"
                 name="event"
                 value="SBD"
-                onChange={calc()}
+                onChange={() => {
+                  setDisabled(false);
+                }}
                 defaultChecked
               />
               <Label htmlFor="sbd" className="Label-radio">
@@ -152,15 +261,27 @@ const Calculator = () => {
                 id="b"
                 name="event"
                 value="B"
-                onChange={calc()}
+                onChange={() => {
+                  setDisabled(false);
+                }}
               />
               <Label htmlFor="b" className="Label-radio">
                 Bench
               </Label>
             </RadioField>
           </RadioGroupLast>
-
-          <Calculate onClick={calc()}>Calculate</Calculate>
+          {disabled ? (
+            <Calculate disabled>Calculate</Calculate>
+          ) : (
+            <Calculate
+              onClick={() => {
+                setDisabled(true);
+                calc();
+              }}
+            >
+              Calculate
+            </Calculate>
+          )}
         </InnerForm>
       </FormCard>
     </Wrapper>
