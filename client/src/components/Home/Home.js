@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  width: 100vw;
+  width: 66.66%;
 `;
 
 export default Home;

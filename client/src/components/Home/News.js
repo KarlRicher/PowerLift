@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 
-  width: 33.33%;
+  width: 50%;
   height: 200px;
   padding: 30px;
   color: black;

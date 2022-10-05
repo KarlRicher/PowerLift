@@ -17,7 +17,7 @@ const SinglePost = ({ postInfo }) => {
   }, [postInfo.authorEmail]);
 
   return (
-    postAuthor !== null && (
+    postAuthor && (
       <Wrapper>
         <PostHeader>
           <AuthorAvatar

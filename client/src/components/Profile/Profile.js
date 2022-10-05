@@ -49,7 +49,7 @@ const Profile = () => {
             <h1>Lifter's Posts</h1>
             {filteredProfilePosts.map((post) => {
               return (
-                <PostWrapper>
+                <PostWrapper key={post._id}>
                   <SinglePost postInfo={post} />
                 </PostWrapper>
               );
@@ -85,7 +85,6 @@ const BasicInfo = styled.div`
 
   padding: 30px;
   max-width: 100%;
-  background-color: white;
 `;
 
 const ProfilePic = styled.img`
@@ -97,13 +96,13 @@ const ProfilePic = styled.img`
 const DisplayName = styled.p`
   font-size: 40px;
   font-weight: bold;
-  background-color: #f2f2f2;
+  background-color: white;
   border-radius: 15px;
   padding: 10px;
 `;
 
 const LifterInfo = styled.div`
-  background-color: #f2f2f2;
+  background-color: white;
   border-radius: 15px;
   padding: 10px;
 `;

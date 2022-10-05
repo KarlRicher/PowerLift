@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Calculator = () => {
   const calc = () => {
-    console.log("Calculated!");
+    // console.log("Calculated!");
   };
 
   return (
@@ -21,7 +21,7 @@ const Calculator = () => {
       <FormCard>
         <InnerForm>
           <Field>
-            <Label for="total" className="Label-number">
+            <Label htmlFor="total" className="Label-number">
               Total
             </Label>
             <Input
@@ -35,7 +35,7 @@ const Calculator = () => {
           </Field>
 
           <Field>
-            <Label for="bodyweight" className="Label-number">
+            <Label htmlFor="bodyweight" className="Label-number">
               Bodyweight
             </Label>
             <Input
@@ -58,7 +58,7 @@ const Calculator = () => {
                 onChange={calc()}
                 defaultChecked
               />
-              <Label for="kilograms" className="Label-radio">
+              <Label htmlFor="kilograms" className="Label-radio">
                 Kilos
               </Label>
             </RadioField>
@@ -70,7 +70,7 @@ const Calculator = () => {
                 value="lbs"
                 onChange={calc()}
               />
-              <Label for="pounds" className="Label-radio">
+              <Label htmlFor="pounds" className="Label-radio">
                 Pounds
               </Label>
             </RadioField>
@@ -86,7 +86,7 @@ const Calculator = () => {
                 onChange={calc()}
                 defaultChecked
               />
-              <Label for="men" className="Label-radio">
+              <Label htmlFor="men" className="Label-radio">
                 Men
               </Label>
             </RadioField>
@@ -98,7 +98,7 @@ const Calculator = () => {
                 value="F"
                 onChange={calc()}
               />
-              <Label for="women" className="Label-radio">
+              <Label htmlFor="women" className="Label-radio">
                 Women
               </Label>
             </RadioField>
@@ -114,7 +114,7 @@ const Calculator = () => {
                 onChange={calc()}
                 defaultChecked
               />
-              <Label for="raw" className="Label-radio">
+              <Label htmlFor="raw" className="Label-radio">
                 Raw
               </Label>
             </RadioField>
@@ -126,7 +126,7 @@ const Calculator = () => {
                 value="Single-ply"
                 onChange={calc()}
               />
-              <Label for="single" className="Label-radio">
+              <Label htmlFor="single" className="Label-radio">
                 Single-ply
               </Label>
             </RadioField>
@@ -142,7 +142,7 @@ const Calculator = () => {
                 onChange={calc()}
                 defaultChecked
               />
-              <Label for="sbd" className="Label-radio">
+              <Label htmlFor="sbd" className="Label-radio">
                 3-Lift
               </Label>
             </RadioField>
@@ -154,7 +154,7 @@ const Calculator = () => {
                 value="B"
                 onChange={calc()}
               />
-              <Label for="b" className="Label-radio">
+              <Label htmlFor="b" className="Label-radio">
                 Bench
               </Label>
             </RadioField>
@@ -167,7 +167,13 @@ const Calculator = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 33.33%;
+`;
 
 const Background = styled.div`
   height: 280px;
@@ -263,13 +269,6 @@ const Calculate = styled.button`
   height: 50px;
   margin-top: 30px;
   border-radius: 30px;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#fe685e),
-    to(#dc372d)
-  );
   background-image: linear-gradient(90deg, #fe685e, #dc372d);
   font-weight: 400;
   letter-spacing: 1px;

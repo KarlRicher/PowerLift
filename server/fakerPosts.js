@@ -32,24 +32,35 @@ const getRandomEmail = async () => {
   const randomEmail =
     usersEmails[Math.floor(Math.random() * usersEmails.length)];
 
-  console.log("randomEmail :" + randomEmail);
+  // console.log("randomEmail :" + randomEmail);
 
   return randomEmail;
 };
 
-const createRandomPost = () => {
-  return {
-    _id: faker.datatype.uuid(),
-    authorEmail: "karl.richer@outlook.com",
-    timestamp: faker.date.recent(2),
-    likedBy: [],
-    repostedBy: [],
-    status: faker.lorem.sentence(),
-  };
+const createRandomPost = async () => {
+  const randomEmail = await getRandomEmail();
+
+  console.log(randomEmail);
+
+  if (randomEmail) {
+    return {
+      _id: faker.datatype.uuid(),
+      authorEmail: randomEmail,
+      timestamp: faker.date.recent(2),
+      likedBy: [],
+      repostedBy: [],
+      status: faker.lorem.sentence(),
+    };
+  }
 };
 
-Array.from({ length: 3 }).forEach(() => {
-  POSTS.push(createRandomPost());
+Array.from({ length: 1 }).forEach(async () => {
+  const test = await createRandomPost();
+
+  console.log("test:" + test);
+  if (test) {
+    POSTS.push(test);
+  }
 });
 
 const pushFakePosts = async () => {
@@ -65,11 +76,6 @@ const pushFakePosts = async () => {
     client.close();
   } catch (error) {
     console.log(error.stack);
-    res.status(500).json({
-      status: 500,
-      data: req.body,
-      message: error.message,
-    });
   }
 };
 

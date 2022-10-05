@@ -11,64 +11,68 @@ const Sidebar = () => {
 
   return (
     <Wrapper>
-      <SidebarLinks to={"/"} end>
-        <Icon>
-          <FiHome />
-        </Icon>
-        <Span>Home</Span>
-      </SidebarLinks>
+      <SmallerWrapper>
+        <SidebarLinks to={"/"} end>
+          <Icon>
+            <FiHome />
+          </Icon>
+          <Span>Home</Span>
+        </SidebarLinks>
 
-      <SidebarLinks to={"/leaderboard"}>
-        <Icon>
-          <BsGrid3X3 />
-        </Icon>
-        <Span>Leaderboard</Span>
-      </SidebarLinks>
+        <SidebarLinks to={"/leaderboard"}>
+          <Icon>
+            <BsGrid3X3 />
+          </Icon>
+          <Span>Leaderboard</Span>
+        </SidebarLinks>
 
-      <SidebarLinks to={"/calculator"}>
-        <Icon>
-          <BsCalculator />
-        </Icon>
-        <Span>GL Points Calculator</Span>
-      </SidebarLinks>
+        <SidebarLinks to={"/calculator"}>
+          <Icon>
+            <BsCalculator />
+          </Icon>
+          <Span>GL Points Calculator</Span>
+        </SidebarLinks>
 
-      <SidebarLinks to={`/profile/${user.email}`}>
-        <Icon>
-          <ProfilePic src={user.picture} />
-        </Icon>
+        <SidebarLinks to={`/profile/${user.email}`}>
+          <Icon>
+            <ProfilePic src={user.picture} />
+          </Icon>
 
-        <Span>Profile</Span>
-      </SidebarLinks>
+          <Span>Profile</Span>
+        </SidebarLinks>
 
-      <SidebarLinks to={"/notifications"}>
-        <Icon>
-          <FiBell />
-        </Icon>
-        <Span>Notifications</Span>
-      </SidebarLinks>
+        <SidebarLinks to={"/notifications"}>
+          <Icon>
+            <FiBell />
+          </Icon>
+          <Span>Notifications</Span>
+        </SidebarLinks>
 
-      <SidebarLinks to={"/messaging"}>
-        <Icon>
-          <FiMail />
-        </Icon>
-        <Span>Messaging</Span>
-      </SidebarLinks>
+        <SidebarLinks to={"/messaging"}>
+          <Icon>
+            <FiMail />
+          </Icon>
+          <Span>Messaging</Span>
+        </SidebarLinks>
 
-      <SidebarLinks to={"/settings"}>
-        <Icon>
-          <FiSettings />
-        </Icon>
-        <Span>Settings</Span>
-      </SidebarLinks>
+        <SidebarLinks to={"/settings"}>
+          <Icon>
+            <FiSettings />
+          </Icon>
+          <Span>Settings</Span>
+        </SidebarLinks>
+      </SmallerWrapper>
     </Wrapper>
   );
 };
 const Wrapper = styled.div`
+  width: 33.33%;
+`;
+
+const SmallerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  width: 33.33%;
   height: 200px;
   padding: 30px;
   color: black;

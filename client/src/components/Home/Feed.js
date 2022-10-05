@@ -10,7 +10,6 @@ const Feed = () => {
     fetch("/api/get-posts")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setPosts(data.data);
       });
   }, []);
@@ -25,7 +24,7 @@ const Feed = () => {
       <PostFeed>
         {filteredPosts.map((post) => {
           return (
-            <PostWrapper>
+            <PostWrapper key={post._id}>
               <SinglePost postInfo={post} />
             </PostWrapper>
           );
@@ -40,7 +39,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-width: 33.33%;
+  width: 50%;
+
   height: 100vh;
   padding: 30px;
 `;
