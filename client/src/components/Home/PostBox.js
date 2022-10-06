@@ -1,36 +1,90 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 
 import { FiImage, FiYoutube } from "react-icons/fi";
 import { AiOutlineAlert } from "react-icons/ai";
+import { UserContext } from "../UserContext";
+import MediaUpload from "./MediaUpload";
 
 const PostBox = () => {
+  const { fetchedUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const { user } = useAuth0();
+  const [textEntry, setTextEntry] = useState("");
+  const [characterCount, setCharacterCount] = useState(0);
+  const [showMediaUpload, setShowMediaUpload] = useState(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetch("/api/create-post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        status: textEntry,
+        authorEmail: fetchedUser.email,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error("An unknown error has occurred.");
+        }
+      })
+      .catch((error) => {
+        window.alert(
+          "An unknown error has occurred. Please try again shortly."
+        );
+      });
+  };
+
   return (
-    <PostForm onSubmit={(event) => {}}>
+    <PostForm
+      onSubmit={(event) => {
+        handleSubmit(event);
+        setTextEntry("");
+      }}
+    >
       <PicAndInput>
         <ProfilePic
-          src={user.picture}
+          src={fetchedUser.avatar}
           onClick={() => {
-            navigate("/profile");
+            navigate(`/profile/${fetchedUser.email}`);
           }}
         />
-        <Input type="text" placeholder="Feeling Strong Today?"></Input>
+        <Input
+          type="text"
+          placeholder="How Strong Are You Feeling Today?"
+          onChange={(event) => {
+            setCharacterCount(event.target.value.length);
+            setTextEntry(event.target.value);
+          }}
+        ></Input>
       </PicAndInput>
       <MediaDiv>
-        <PhotoButton>
+        <PhotoButton
+          onClick={() => {
+            setShowMediaUpload(true);
+          }}
+        >
           <FiImage /> <ButtonSpan>Photo</ButtonSpan>
         </PhotoButton>
-        <VideoButton>
+        <VideoButton
+          onClick={() => {
+            setShowMediaUpload(true);
+          }}
+        >
           <FiYoutube /> <ButtonSpan>Video</ButtonSpan>
         </VideoButton>
         <EventButton>
           <AiOutlineAlert /> <ButtonSpan>PR Alert</ButtonSpan>
         </EventButton>
       </MediaDiv>
+      {showMediaUpload ? <MediaUpload /> : null}
+      <Submit type="submit" disabled={characterCount === 0}>
+        Submit
+      </Submit>
     </PostForm>
   );
 };
@@ -149,6 +203,29 @@ const ButtonSpan = styled.span`
   color: grey;
   margin-left: 15px;
   font-size: 0.8em;
+`;
+
+const Submit = styled.button`
+  width: 90%;
+  border-radius: 15px;
+  border: none;
+  color: white;
+  background-color: #cc0000;
+  font-size: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
 `;
 
 export default PostBox;

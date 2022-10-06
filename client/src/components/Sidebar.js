@@ -1,13 +1,13 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
 import { NavLink } from "react-router-dom";
 import { FiHome, FiBell, FiMail, FiSettings } from "react-icons/fi";
 import { BsGrid3X3, BsCalculator } from "react-icons/bs";
+import { UserContext } from "./UserContext";
 
 const Sidebar = () => {
-  const { user } = useAuth0();
+  const { fetchedUser } = useContext(UserContext);
 
   return (
     <Wrapper>
@@ -33,9 +33,9 @@ const Sidebar = () => {
           <Span>GL Points Calculator</Span>
         </SidebarLinks>
 
-        <SidebarLinks to={`/profile/${user.email}`}>
+        <SidebarLinks to={`/profile/${fetchedUser.email}`}>
           <Icon>
-            <ProfilePic src={user.picture} />
+            <ProfilePic src={fetchedUser.avatar} />
           </Icon>
 
           <Span>Profile</Span>

@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import SinglePost from "../SinglePost";
+import { UserContext } from "../UserContext";
 
 const Profile = () => {
   const { userEmail } = useParams();
-  const [fetchedUser, setFetchedUser] = useState(null);
-  const [profilePosts, setProfilePosts] = useState([]);
+  const { fetchedUser } = useContext(UserContext);
 
-  useEffect(() => {
-    // Fetch the item data from the API (/api/get-items/:userEmail)
-    fetch(`/api/get-user/${userEmail}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setFetchedUser(data.item);
-      });
-  }, [userEmail]);
+  const [profilePosts, setProfilePosts] = useState([]);
 
   useEffect(() => {
     fetch(`/api/get-user-posts/${userEmail}`)
