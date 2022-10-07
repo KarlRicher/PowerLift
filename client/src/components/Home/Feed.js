@@ -5,6 +5,7 @@ import SinglePost from "../SinglePost";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
+  const [refreshFeed, setRefreshFeed] = useState(false);
 
   useEffect(() => {
     fetch("/api/get-posts")
@@ -12,7 +13,7 @@ const Feed = () => {
       .then((data) => {
         setPosts(data.data);
       });
-  }, []);
+  }, [refreshFeed]);
 
   const filteredPosts = posts.sort((a, b) => {
     return new Date(b.timestamp) - new Date(a.timestamp);
@@ -20,12 +21,16 @@ const Feed = () => {
 
   return (
     <Wrapper>
-      <PostBox />
+      <PostBox refreshFeed={refreshFeed} setRefreshFeed={setRefreshFeed} />
       <PostFeed>
         {filteredPosts.map((post) => {
           return (
             <PostWrapper key={post._id}>
-              <SinglePost postInfo={post} />
+              <SinglePost
+                postInfo={post}
+                refreshFeed={refreshFeed}
+                setRefreshFeed={setRefreshFeed}
+              />
             </PostWrapper>
           );
         })}

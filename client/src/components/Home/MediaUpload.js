@@ -35,7 +35,11 @@ const MediaUpload = ({ data }) => {
         }}
       />
 
-      <Upload onClick={uploadHandler} disabled={selectedFile === null}>
+      <Upload
+        type="button"
+        onClick={uploadHandler}
+        disabled={selectedFile === null}
+      >
         Upload
       </Upload>
 

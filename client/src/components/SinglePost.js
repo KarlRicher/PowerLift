@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { Image } from "cloudinary-react";
+import { FiTrash2 } from "react-icons/fi";
+import { UserContext } from "./UserContext";
 
-const SinglePost = ({ postInfo }) => {
+const SinglePost = ({ refreshFeed, setRefreshFeed, postInfo }) => {
+  const { fetchedUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [postAuthor, setPostAuthor] = useState(null);
 
@@ -17,6 +20,16 @@ const SinglePost = ({ postInfo }) => {
       });
   }, [postInfo.authorEmail]);
 
+  const deletePost = () => {
+    fetch("/api/delete-post", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postInfo),
+    });
+  };
+
   return (
     postAuthor && (
       <Wrapper>
@@ -27,24 +40,40 @@ const SinglePost = ({ postInfo }) => {
               navigate(`/profile/${postInfo.authorEmail}`);
             }}
           />
+
           <AuthorInfo>
             <AuthorName>
               {postAuthor.firstName + " " + postAuthor.lastName + " - "}
             </AuthorName>
+
             <Timestamp>
               {moment(postInfo.timestamp).startOf("hour").fromNow()}
             </Timestamp>
           </AuthorInfo>
+
+          {fetchedUser.email === postAuthor.email ? (
+            <DeleteButton
+              onClick={() => {
+                deletePost();
+                setRefreshFeed(!refreshFeed);
+              }}
+            >
+              <FiTrash2 />
+            </DeleteButton>
+          ) : null}
         </PostHeader>
 
         <PostStatus>{postInfo.status}</PostStatus>
+
         <PostMedia cloudName="dplyk1z8y" publicId={postInfo.url} />
       </Wrapper>
     )
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100%;
+`;
 
 const PostHeader = styled.div`
   display: flex;
@@ -69,16 +98,21 @@ const AuthorInfo = styled.div`
   display: flex;
   flex-direction: row;
   align-items: baseline;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   margin-left: 20px;
   max-height: 50px;
+  width: 100%;
 `;
 
 const AuthorName = styled.p``;
 
 const Timestamp = styled.p`
   margin-left: 5px;
+`;
+
+const DeleteButton = styled.button`
+  justify-self: flex-end;
 `;
 
 const PostStatus = styled.div`

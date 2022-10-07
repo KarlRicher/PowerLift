@@ -7,7 +7,7 @@ import { AiOutlineAlert } from "react-icons/ai";
 import { UserContext } from "../UserContext";
 import MediaUpload from "./MediaUpload";
 
-const PostBox = () => {
+const PostBox = ({ refreshFeed, setRefreshFeed }) => {
   const { fetchedUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [textEntry, setTextEntry] = useState("");
@@ -46,6 +46,9 @@ const PostBox = () => {
       onSubmit={(event) => {
         handleSubmit(event);
         setTextEntry("");
+        setRefreshFeed(!refreshFeed);
+        setShowMediaUpload(false);
+        setPublicId("");
       }}
     >
       <PicAndInput>
@@ -62,6 +65,7 @@ const PostBox = () => {
             setCharacterCount(event.target.value.length);
             setTextEntry(event.target.value);
           }}
+          value={textEntry}
         ></Input>
       </PicAndInput>
       <MediaDiv>
@@ -142,7 +146,6 @@ const MediaDiv = styled.div`
   align-items: center;
   justify-content: center;
   border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
   width: 90%;
 `;
 
