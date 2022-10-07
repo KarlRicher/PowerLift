@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { Image } from "cloudinary-react";
 
 const SinglePost = ({ postInfo }) => {
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ const SinglePost = ({ postInfo }) => {
         </PostHeader>
 
         <PostStatus>{postInfo.status}</PostStatus>
+        <PostMedia cloudName="dplyk1z8y" publicId={postInfo.url} />
       </Wrapper>
     )
   );
@@ -79,6 +81,12 @@ const Timestamp = styled.p`
   margin-left: 5px;
 `;
 
-const PostStatus = styled.div``;
+const PostStatus = styled.div`
+  margin-bottom: 20px;
+`;
+
+const PostMedia = styled(Image)`
+  width: 100%;
+`;
 
 export default SinglePost;

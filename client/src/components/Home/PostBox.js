@@ -13,6 +13,7 @@ const PostBox = () => {
   const [textEntry, setTextEntry] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
   const [showMediaUpload, setShowMediaUpload] = useState(false);
+  const [publicId, setPublicId] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,6 +26,7 @@ const PostBox = () => {
       body: JSON.stringify({
         status: textEntry,
         authorEmail: fetchedUser.email,
+        url: publicId,
       }),
     })
       .then((response) => {
@@ -64,6 +66,7 @@ const PostBox = () => {
       </PicAndInput>
       <MediaDiv>
         <PhotoButton
+          type="button"
           onClick={() => {
             setShowMediaUpload(true);
           }}
@@ -71,17 +74,20 @@ const PostBox = () => {
           <FiImage /> <ButtonSpan>Photo</ButtonSpan>
         </PhotoButton>
         <VideoButton
+          type="button"
           onClick={() => {
             setShowMediaUpload(true);
           }}
         >
           <FiYoutube /> <ButtonSpan>Video</ButtonSpan>
         </VideoButton>
-        <EventButton>
+        <EventButton type="button">
           <AiOutlineAlert /> <ButtonSpan>PR Alert</ButtonSpan>
         </EventButton>
       </MediaDiv>
-      {showMediaUpload ? <MediaUpload /> : null}
+      {showMediaUpload ? (
+        <MediaUpload data={{ publicId, setPublicId }} />
+      ) : null}
       <Submit type="submit" disabled={characterCount === 0}>
         Submit
       </Submit>
@@ -136,6 +142,7 @@ const MediaDiv = styled.div`
   align-items: center;
   justify-content: center;
   border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
   width: 90%;
 `;
 

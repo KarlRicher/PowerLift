@@ -20,7 +20,7 @@ const createPost = async (req, res) => {
 
     console.log(req.body);
 
-    const { status, authorEmail } = req.body;
+    const { status, authorEmail, url } = req.body;
 
     const newPost = {
       _id: uuidv4(),
@@ -29,6 +29,7 @@ const createPost = async (req, res) => {
       likedBy: [],
       repostedBy: [],
       status,
+      url,
     };
 
     const db = client.db("PowerLift");
