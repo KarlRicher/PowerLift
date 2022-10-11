@@ -294,6 +294,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 33.33%;
+  min-width: 1000px;
+  padding: 30px;
 `;
 
 const Background = styled.div`
