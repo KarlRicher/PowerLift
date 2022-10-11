@@ -6,6 +6,7 @@ export const UserContext = createContext(null);
 const UserProvider = ({ children }) => {
   const { user } = useAuth0();
   const [fetchedUser, setFetchedUser] = useState([]);
+  const [refreshContext, setRefreshContext] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -14,10 +15,12 @@ const UserProvider = ({ children }) => {
       .then((data) => {
         setFetchedUser(data.item);
       });
-  }, [user]);
+  }, [user, refreshContext]);
 
   return (
-    <UserContext.Provider value={{ fetchedUser }}>
+    <UserContext.Provider
+      value={{ fetchedUser, refreshContext, setRefreshContext }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -41,7 +41,7 @@ const Sidebar = () => {
           <Span>Profile</Span>
         </SidebarLinks>
 
-        <SidebarLinks to={"/notifications"}>
+        {/* <SidebarLinks to={"/notifications"}>
           <Icon>
             <FiBell />
           </Icon>
@@ -53,7 +53,7 @@ const Sidebar = () => {
             <FiMail />
           </Icon>
           <Span>Messaging</Span>
-        </SidebarLinks>
+        </SidebarLinks> */}
 
         <SidebarLinks to={"/settings"}>
           <Icon>

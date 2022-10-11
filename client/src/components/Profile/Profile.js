@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import SinglePost from "../SinglePost";
 import { AiFillCamera } from "react-icons/ai";
+import UpdateProfilePic from "./UpdateProfilePic";
+import { UserContext } from "../UserContext";
 
 const Profile = () => {
   const { userEmail } = useParams();
   const [fetchedUser, setFetchedUser] = useState(null);
   const [profilePosts, setProfilePosts] = useState([]);
+  const [showMediaUpload, setShowMediaUpload] = useState(false);
+  const [newAvatarSrc, setNewAvatarSrc] = useState(null);
+  const [refreshPage, setRefreshPage] = useState(false);
 
   useEffect(() => {
     // Fetch the viewed profile's user's data from the API (/api/get-user/:userEmail)
@@ -16,7 +21,7 @@ const Profile = () => {
       .then((data) => {
         setFetchedUser(data.item);
       });
-  }, [userEmail]);
+  }, [userEmail, refreshPage]);
 
   useEffect(() => {
     fetch(`/api/get-user-posts/${userEmail}`)
@@ -24,7 +29,7 @@ const Profile = () => {
       .then((data) => {
         setProfilePosts(data.data);
       });
-  }, [userEmail]);
+  }, [userEmail, refreshPage]);
 
   const filteredProfilePosts = profilePosts.sort((a, b) => {
     return new Date(b.timestamp) - new Date(a.timestamp);
@@ -37,9 +42,25 @@ const Profile = () => {
           <ProfileBanner src={fetchedUser.banner} alt="User banner" />
           <BasicInfo>
             <ProfilePic src={fetchedUser.avatar} alt="User avatar" />
-            <ChangeProfilePic type="button">
+            <ChangeProfilePic
+              type="button"
+              onClick={() => {
+                setShowMediaUpload(true);
+              }}
+            >
               <AiFillCamera />
             </ChangeProfilePic>
+            {showMediaUpload ? (
+              <UpdateProfilePic
+                data={{
+                  newAvatarSrc,
+                  setNewAvatarSrc,
+                  setShowMediaUpload,
+                  refreshPage,
+                  setRefreshPage,
+                }}
+              />
+            ) : null}
             <DisplayName>
               {fetchedUser.firstName + " " + fetchedUser.lastName}
             </DisplayName>
@@ -113,6 +134,7 @@ const BasicInfo = styled.div`
 
 const ProfilePic = styled.img`
   width: 150px;
+  height: 150px;
   border: 4px solid black;
   border-radius: 200px;
 `;

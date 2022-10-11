@@ -13,7 +13,7 @@ import Calculator from "./components/Calculator";
 import Leaderboard from "./components/Leaderboard";
 
 const App = () => {
-  const { isLoading, isAuthenticated, error } = useAuth0();
+  const { isLoading, isAuthenticated, error, user } = useAuth0();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -22,27 +22,29 @@ const App = () => {
     return <div>Oops... {error.message}</div>;
   }
 
-  if (isAuthenticated) {
-    return (
-      <Wrapper>
-        <BrowserRouter>
-          <GlobalStyle />
-          <Header />
-          <Main>
-            <Sidebar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/profile/:userEmail" element={<Profile />} />
-              <Route path="/leaderboard" element={<Leaderboard />} />
-              <Route path="/calculator" element={<Calculator />} />
-            </Routes>
-          </Main>
-        </BrowserRouter>
-      </Wrapper>
-    );
-  } else {
-    return <LoginPage />;
-  }
+  return (
+    <>
+      {user && (
+        <Wrapper>
+          <BrowserRouter>
+            <GlobalStyle />
+            <Header />
+            <Main>
+              <Sidebar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/profile/:userEmail" element={<Profile />} />
+                <Route path="/leaderboard" element={<Leaderboard />} />
+                <Route path="/calculator" element={<Calculator />} />
+              </Routes>
+            </Main>
+          </BrowserRouter>
+        </Wrapper>
+      )}
+
+      {!user && <LoginPage />}
+    </>
+  );
 };
 
 const Wrapper = styled.div`

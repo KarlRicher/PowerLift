@@ -4,7 +4,7 @@ import styled from "styled-components";
 const News = () => {
   return (
     <Wrapper>
-      <h1>News</h1>
+      <h1></h1>
     </Wrapper>
   );
 };
