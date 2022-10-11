@@ -10,7 +10,6 @@ const options = {
   useUnifiedTopology: true,
 };
 
-// Get a single item (using its ID) from the "items" collection.
 const getUser = async (req, res) => {
   const userEmail = req.params.userEmail;
   const client = new MongoClient(MONGO_URI, options);

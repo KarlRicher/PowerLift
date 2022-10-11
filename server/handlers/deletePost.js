@@ -10,7 +10,6 @@ const options = {
   useUnifiedTopology: true,
 };
 
-// Delete an item from the "cart" collection.
 const deletePost = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 

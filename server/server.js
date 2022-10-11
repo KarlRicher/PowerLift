@@ -8,6 +8,7 @@ const { getSortedUsers } = require("./handlers/getSortedUsers");
 const { getUser } = require("./handlers/getUser");
 const { getUserPosts } = require("./handlers/getUserPosts");
 const { getUsers } = require("./handlers/getUsers");
+const { updateProfilePic } = require("./handlers/updateProfilePic");
 
 require("dotenv").config();
 
@@ -32,6 +33,8 @@ app.get("/api/get-sorted-users/:sortedBy", getSortedUsers);
 app.post("/api/create-post", createPost);
 
 app.delete("/api/delete-post", deletePost);
+
+app.patch("/api/update-profile-pic", updateProfilePic);
 
 app.listen(8000, () => {
   console.log(`Server launched on port 8000`);

@@ -10,7 +10,6 @@ const options = {
   useUnifiedTopology: true,
 };
 
-// Get every single company object from the "users" collection.
 const getUsers = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
